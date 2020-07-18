@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Table(name = "tbl_unit_of_measurements")
 @Data
 @NoArgsConstructor
+
 public class UnitOfMeasurement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +29,8 @@ public class UnitOfMeasurement {
 
     @Column
     private boolean active;
+
+    public UnitOfMeasurement(Integer id){
+        this.id=id;
+    }
 }

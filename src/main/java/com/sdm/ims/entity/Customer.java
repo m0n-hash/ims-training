@@ -5,11 +5,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity(name = "ProductTypeEntity")
-@Table(name = "tbl_product_types")
+@Entity(name = "CustomerEntity")
+@Table(name = "tbl_customers")
 @Data
 @NoArgsConstructor
-public class ProductType {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -17,19 +17,9 @@ public class ProductType {
     @Column(length = 50,nullable = false)
     private String code;
 
-    @Column(nullable = false)
+    @Column(length = 255,nullable = false)
     private String name;
 
-    @Column
-    private String description;
-
-    @Column
-    private boolean def;
-
-    @Column
-    private boolean active;
-
-    public ProductType(Integer id){
-        this.id=id;
-    }
+    @Column(length = 255,nullable = false)
+    private String company;
 }

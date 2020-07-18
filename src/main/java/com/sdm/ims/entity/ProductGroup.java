@@ -28,4 +28,8 @@ public class ProductGroup {
 
     @Column
     private boolean active;
+
+    public ProductGroup(Integer id){
+        this.id=id;
+    }
 }

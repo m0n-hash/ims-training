@@ -1,8 +1,8 @@
 package com.sdm.ims.controller;
 
-import com.sdm.ims.entity.ProductGroup;
-import com.sdm.ims.entity.ProductType;
-import com.sdm.ims.repository.ProductGroupRepository;
+import com.sdm.ims.entity.Customer;
+import com.sdm.ims.entity.Product;
+import com.sdm.ims.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,10 +13,10 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/product/group")
-public class ProductGroupController {
+@RequestMapping("/customer")
+public class CustomerController {
     @Autowired
-    ProductGroupRepository repository;
+    CustomerRepository repository;
 
     @GetMapping("/hello/{name}")
     public ResponseEntity<String> helloWorld(@PathVariable("name")String name){
@@ -24,8 +24,8 @@ public class ProductGroupController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ProductGroup> getById(@PathVariable("id")int id) throws Exception {
-        Optional<ProductGroup> result=repository.findById(id);
+    public ResponseEntity<Customer> getById(@PathVariable("id")int id) throws Exception {
+        Optional<Customer> result=repository.findById(id);
         if(result.isEmpty()){
             throw new Exception("no data with id : "+id);
         }
@@ -40,14 +40,14 @@ public class ProductGroupController {
 
     @GetMapping("paging")
     public ResponseEntity<?> getPaging(@RequestParam("page")int page, @RequestParam("size")int size){
-        Page<ProductGroup> result=repository.findAll(PageRequest.of(page,size));
+        Page<Customer> result=repository.findAll(PageRequest.of(page,size));
         return ResponseEntity.ok(result);
     }
 
     @PostMapping
-    public ResponseEntity insert(@RequestBody ProductGroup request){
+    public ResponseEntity insert(@RequestBody Customer request){
         try{
-            ProductGroup result=repository.save(request);
+            Customer result=repository.save(request);
             return ResponseEntity.ok(result);
         }catch(Exception ex){
             throw ex;
@@ -55,12 +55,12 @@ public class ProductGroupController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity update(@RequestBody ProductGroup request,@PathVariable("id")int id)throws Exception{
+    public ResponseEntity update(@RequestBody Customer request,@PathVariable("id")int id)throws Exception{
         if(repository.findById(id).isEmpty()){
             throw new Exception("No data with id : "+id);
         }
         try{
-            ProductGroup result=repository.save(request);
+            Customer result=repository.save(request);
             return ResponseEntity.ok(result);
         }catch(Exception ex){
             throw ex;
@@ -69,27 +69,25 @@ public class ProductGroupController {
 
     @PatchMapping("{id}")
     public ResponseEntity patchData(@RequestBody Map<String,Object> request, @PathVariable("id")int id)throws Exception{
-        Optional<ProductGroup> data=repository.findById(id);
+        Optional<Customer> data=repository.findById(id);
         if(data.isEmpty()){
             throw new Exception("No data with id : "+id);
         }
-        ProductGroup patchData=data.get();
+        Customer patchData=data.get();
         if(request.containsKey("code")){
             patchData.setCode(request.get("code").toString());
         }
         if(request.containsKey("name")){
             patchData.setName(request.get("name").toString());
         }
-        if(request.containsKey("description")){
-            patchData.setDescription(request.get("description").toString());
-        }
+
         patchData=repository.save(patchData);
         return ResponseEntity.ok(patchData);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity delete(@PathVariable("id")int id)throws Exception{
-        Optional<ProductGroup> data=repository.findById(id);
+        Optional<Customer> data=repository.findById(id);
         if(data.isEmpty()){
             throw new Exception("No data with id : "+id);
         }
