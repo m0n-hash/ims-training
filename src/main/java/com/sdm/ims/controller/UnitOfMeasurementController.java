@@ -25,6 +25,11 @@ import java.util.Optional;
 public class UnitOfMeasurementController {
     @Autowired
     UnitOfMeasurementRepository repository;
+    @GetMapping("")
+    public ResponseEntity<MessageResponse> welcome() {
+        MessageResponse message = new MessageResponse("Welcome!", "Never give up to be a warrior.");
+        return ResponseEntity.ok(message);
+    }
 
     @GetMapping("/hello/{name}")
     public ResponseEntity<String> helloWorld(@PathVariable("name")String name){
